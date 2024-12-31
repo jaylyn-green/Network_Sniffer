@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from monitor.devices import scan_network
 from monitor.port_scan import scan_ports
 
@@ -12,7 +12,10 @@ def get_devices():
 
 @app.route('/api/device-info', methods = ["GET"])
 def device_info():
-    device = "192.168.1.105"
+    device = request.args.get("ip")
+    if not device:
+        return jsonify({"error": "IP address is required!"}), 400
+    
     info = scan_ports(device)
     return jsonify(info)
 

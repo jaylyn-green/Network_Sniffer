@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from monitor.devices import scan_network
 from monitor.port_scan import scan_ports
+from monitor.sniffer import packet_callback
 
 app = Flask(__name__)
 
@@ -19,6 +20,9 @@ def device_info():
     info = scan_ports(device)   #external function
     return jsonify(info)
 
+def sniffer():
+    packet_callback('192.168.1.105')      #change to dynamically set ip
+    return
 
 if __name__ == '__main__':
     app.run(debug=True)

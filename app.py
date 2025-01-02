@@ -16,7 +16,7 @@ def device_info():
     if not device:
         return jsonify({"error": "IP address is required!"}), 400
     
-    info = scan_ports(device)
+    info = scan_ports(device)   #external function
     return jsonify(info)
 
 

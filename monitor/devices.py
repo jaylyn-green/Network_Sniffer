@@ -9,7 +9,9 @@ def scan_network(ip_range):
     result = srp(packet, timeout=1, verbose=False)[0]
 
     devices = []
+    count = 0
     for _, received in result:
-        devices.append({'ip': received.psrc, 'mac': received.hwsrc})
+        count+=1
+        devices.append({'num': count, 'ip': received.psrc, 'mac': received.hwsrc})
 
     return devices
